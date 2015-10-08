@@ -7,8 +7,8 @@ import they.screen.Display;
 public class Launcher {
 
 	public static void main(String[] args) {
-		Game launch = new Game("MainCall",new Dimension(600,400));
-
+		Game game = new Game("MainCall",new Dimension(1024,600));
+		game.start();
 	}
 
 }
