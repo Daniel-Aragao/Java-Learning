@@ -1,0 +1,25 @@
+package Exercicing;
+
+import java.awt.BorderLayout;
+
+import javax.swing.JFrame;
+
+public class MainFrame extends JFrame{
+	TextPanel textArea;
+	
+	public MainFrame(){
+		super("MainFrame 1.0");
+		setLayout(new BorderLayout());
+		setVisible(true);
+		setPreferredSize(new Dimension(600,400));
+		
+		textArea = new TextPanel();
+		
+		
+		
+		add(textArea,BorderLayout.CENTER);
+		pack();
+	}
+	
+	
+}

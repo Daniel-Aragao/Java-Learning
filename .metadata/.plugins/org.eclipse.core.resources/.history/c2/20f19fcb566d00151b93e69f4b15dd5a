@@ -1,0 +1,33 @@
+package Exercicing;
+
+import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JPanel;
+
+@SuppressWarnings("serial")
+public class ToolBar extends JPanel implements ActionListener{
+	JButton helloWorld;
+	JButton clean;
+	JButton thanks;//  joh purcell for the learning
+	
+	public ToolBar(){
+		setLayout(new FlowLayout(FlowLayout.LEFT));
+		
+		
+		add(helloWorld);
+		add(clean);
+		add(thanks);
+		
+		
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+}

@@ -1,0 +1,30 @@
+package they.game;
+
+import java.awt.Dimension;
+
+import they.screen.Display;
+
+public class Game implements Runnable {
+	private Display display;
+	private Dimension dim;
+
+	private Thread thread;
+
+	public Game(String title, Dimension dim) {
+		display = new Display(title, dim);
+		this.dim = dim;
+	}
+
+	@Override
+	public void run() {
+
+	}
+
+	public synchronized void start() {
+
+	}
+
+	public synchronized void stop() {
+
+	}
+}

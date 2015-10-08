@@ -1,0 +1,13 @@
+package Exercicing;
+
+import javax.swing.JFrame;
+
+public class MainFrame extends JFrame{
+	TextPanel textArea;
+	
+	public MainFrame(){
+		textArea = new TextPanel();
+	}
+	
+	
+}

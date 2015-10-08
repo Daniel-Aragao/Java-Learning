@@ -1,0 +1,11 @@
+package Exercicing;
+
+import javax.swing.JPanel;
+
+public class FormPanel extends JPanel{
+
+	JForm form;
+	
+	
+	
+}

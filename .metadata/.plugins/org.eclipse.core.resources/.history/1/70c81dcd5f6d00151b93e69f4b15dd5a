@@ -1,0 +1,13 @@
+package they.game;
+
+import java.awt.Dimension;
+
+import they.screen.Display;
+
+public class Game {
+	private Display display;
+	
+	public Game(Dimension dim){
+		display = new Display("Game Call",dim);
+	}
+}

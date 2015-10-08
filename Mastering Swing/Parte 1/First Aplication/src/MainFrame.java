@@ -9,7 +9,7 @@ public class MainFrame extends JFrame{
 	private FormPanel formpanel;
 	
 	public MainFrame(){
-		super("Hello World)");
+		super("Hello World");
 		
 		setLayout(new BorderLayout());
 		
@@ -19,7 +19,7 @@ public class MainFrame extends JFrame{
 		
 		toolbar.setStringListener(new StringListener(){
 			public void textEmited(String text){
-				if(text !=null){
+				if(text != null){
 					textPanel.appendText(text);
 				}else{
 					textPanel.setText(text);

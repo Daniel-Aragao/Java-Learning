@@ -1,0 +1,12 @@
+package they.first;
+
+import java.awt.Dimension;
+
+public class Launcher {
+
+	public static void main(String[] args) {
+		Display launch = new Display("Display",new Dimension(600,400));
+
+	}
+
+}

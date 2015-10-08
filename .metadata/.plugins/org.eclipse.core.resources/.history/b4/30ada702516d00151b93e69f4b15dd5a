@@ -1,0 +1,15 @@
+package Exercicing;
+
+import javax.swing.JPanel;
+import javax.swing.JTextArea;
+
+public class TextArea extends JPanel{
+	JTextArea textArea;
+
+	public TextArea(JTextArea textArea) {
+		this.textArea = textArea;
+
+	}
+	
+	
+}

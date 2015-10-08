@@ -1,0 +1,19 @@
+package Exercicing;
+
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+
+import javax.swing.JPanel;
+
+@SuppressWarnings("serial")
+public class ToolBar extends JPanel{
+	
+	
+	public ToolBar(){
+		setLayout(new FlowLayout(FlowLayout.LEFT));
+		
+		
+		pack();
+	}
+	
+}
