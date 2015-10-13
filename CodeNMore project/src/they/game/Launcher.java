@@ -2,7 +2,7 @@ package they.game;
 
 import java.awt.Dimension;
 
-import they.screen.Display;
+import they.display.Display;
 
 public class Launcher {
 
