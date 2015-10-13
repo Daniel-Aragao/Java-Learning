@@ -25,4 +25,6 @@
 <fullyQualifiedTypeName name="javax.imageio.ImageIO"/>
 <fullyQualifiedTypeName name="javax.security.auth.callback.TextInputCallback"/>
 <fullyQualifiedTypeName name="they.screen.ImageLoader"/>
+<fullyQualifiedTypeName name="they.screen.SpritSheet"/>
+<fullyQualifiedTypeName name="java.awt.image.BufferedImage"/>
 </qualifiedTypeNameHistroy>

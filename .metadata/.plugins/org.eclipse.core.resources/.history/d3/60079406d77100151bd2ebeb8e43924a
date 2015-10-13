@@ -52,7 +52,7 @@ public class Game implements Runnable {
 		g.clearRect(0, 0, dim.width, dim.height);
 		//Draw Here!
 		
-		g.drawImage(sheet.crop(32, 0, 32, 32),5,5,null);
+		g.drawImage(sheet.crop(32, 0, width, height),5,5,null);
 		
 		//End Drawing!
 		bs.show();
