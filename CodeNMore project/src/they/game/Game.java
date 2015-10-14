@@ -5,6 +5,7 @@ import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 
 import states.GameState;
+import states.MenuState;
 import states.State;
 import states.State;
 import they.display.Display;
@@ -24,7 +25,7 @@ public class Game implements Runnable {
 
 	//States
 	private State gameState;
-	
+	private State menuState;
 	
 	public Game(String title, Dimension dim) {
 		this.dim = dim;
@@ -37,7 +38,8 @@ public class Game implements Runnable {
 		display = new Display(title, dim);
 		Assets.init();
 		
-		gameState = new GameState();
+		gameState = new GameState(this);
+		menuState = new MenuState(this);
 		State.setState(gameState);
 	}
 

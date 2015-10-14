@@ -1,0 +1,28 @@
+package entity.creatures;
+
+import java.awt.Graphics;
+
+import entity.Entity;
+
+public class Creatures extends Entity{
+	
+	protected int health;
+	
+	public Creatures(float x, float y) {
+		super(x, y);
+		health = 10;
+	}
+
+	@Override
+	public void update() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void draw(Graphics g) {
+		// TODO Auto-generated method stub
+		
+	}
+
+}
