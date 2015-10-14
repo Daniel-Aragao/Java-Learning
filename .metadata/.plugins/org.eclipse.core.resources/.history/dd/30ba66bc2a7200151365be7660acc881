@@ -51,8 +51,6 @@ public class Game implements Runnable {
 
 	
 	private void tick() { // tick or update
-		keyManager.update();
-		
 		if(State.getState()!=null){
 			State.getState().update();
 		}

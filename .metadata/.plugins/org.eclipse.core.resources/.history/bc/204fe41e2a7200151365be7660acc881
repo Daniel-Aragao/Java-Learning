@@ -51,8 +51,6 @@ public class Game implements Runnable {
 
 	
 	private void tick() { // tick or update
-		keyManager.update();
-		
 		if(State.getState()!=null){
 			State.getState().update();
 		}
@@ -113,8 +111,6 @@ public class Game implements Runnable {
 		stop();
 
 	}
-	
-	public KeyManager getKeyManage(){return keyManager;}
 
 	public synchronized void start() {
 		if (gameLoop) {

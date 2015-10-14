@@ -16,18 +16,7 @@ public class Player extends Creature {
 
 	@Override
 	public void update() {
-		if(game.getKeyManage().up){
-			y -= 3;
-		}
-		if(game.getKeyManage().down){
-			y += 3;
-		}
-		if(game.getKeyManage().left){
-			x -= 3;
-		}
-		if(game.getKeyManage().right){
-			x += 3;
-		}
+				
 	}
 
 	@Override

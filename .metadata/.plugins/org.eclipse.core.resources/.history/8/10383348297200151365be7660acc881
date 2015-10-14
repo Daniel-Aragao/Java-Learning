@@ -1,13 +1,12 @@
 package they.game;
 
-import input.KeyManager;
-
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 
 import states.GameState;
 import states.MenuState;
+import states.State;
 import states.State;
 import they.display.Display;
 import they.graphics.Assets;
@@ -23,9 +22,6 @@ public class Game implements Runnable {
 
 	private BufferStrategy bs;
 	private Graphics g;
-	
-	//Input
-	private KeyManager keyManager;
 
 	//States
 	private State gameState;
@@ -36,12 +32,10 @@ public class Game implements Runnable {
 		width = dim.width;
 		height = dim.height;
 		this.title = title;
-		this.keyManager = new KeyManager();
 	}
 
 	private void init() {
 		display = new Display(title, dim);
-		display.getFrame().addKeyListener(keyManager);
 		Assets.init();
 		
 		gameState = new GameState(this);
@@ -51,8 +45,6 @@ public class Game implements Runnable {
 
 	
 	private void tick() { // tick or update
-		keyManager.update();
-		
 		if(State.getState()!=null){
 			State.getState().update();
 		}
@@ -113,8 +105,6 @@ public class Game implements Runnable {
 		stop();
 
 	}
-	
-	public KeyManager getKeyManage(){return keyManager;}
 
 	public synchronized void start() {
 		if (gameLoop) {
