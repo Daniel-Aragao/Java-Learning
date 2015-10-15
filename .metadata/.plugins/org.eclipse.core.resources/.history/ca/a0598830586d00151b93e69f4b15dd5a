@@ -1,5 +1,0 @@
-package Exercicing;
-
-public interface StringListener {
-	public void stringEmited(String text);
-}
