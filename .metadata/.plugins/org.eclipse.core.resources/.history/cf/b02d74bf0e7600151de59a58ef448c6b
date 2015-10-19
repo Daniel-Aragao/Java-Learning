@@ -23,29 +23,6 @@ public abstract class Creature extends Entity{
 		xMove = 0;
 		yMove = 0;
 	}
-	
-	public void move(){
-		x += xMove;
-		y += yMove;
-	}
-	
-	//GETTERS SETTERS
-
-	public float getxMove() {
-		return xMove;
-	}
-
-	public void setxMove(float xMove) {
-		this.xMove = xMove;
-	}
-
-	public float getyMove() {
-		return yMove;
-	}
-
-	public void setyMove(float yMove) {
-		this.yMove = yMove;
-	}
 
 	public int getHealth() {
 		return health;
