@@ -1,0 +1,170 @@
+public class ListaDinamicaGenerica<T> {
+	private No<T> header;
+	private int length;
+
+	public ListaDinamicaGenerica() {
+		length = 0;
+	}
+
+	private boolean isEmpty() {
+		if (header == null) {
+			return true;
+		}
+		return false;
+	}
+
+	public void addInicio(T elemento) {
+		if (isEmpty()) {
+			header = new No<T>(elemento);
+			length++;
+			return;
+		}
+		No<T> aux = new No<T>(elemento);
+		aux.setProximo(header);
+		header = aux;
+		length++;
+	}
+
+	public void addFinal(T elemento) {
+		if (isEmpty()) {
+			header = new No<T>(elemento);
+			length++;
+			return;
+		}
+
+		No<T> aux = this.getNoIndex(length - 1);
+		aux.setProximo(new No<T>(elemento));
+
+		length++;
+	}
+
+	public void add(int index, T elemento) {
+		if (index == 0 || isEmpty()) {
+			addInicio(elemento);
+			return;
+		}
+
+		No<T> aux = getNoIndex(index - 1);
+		No<T> novoNo = new No<T>(elemento);
+
+		novoNo.setProximo(aux.getProximo());
+		aux.setProximo(novoNo);
+
+		length++;
+	}
+
+	private No<T> getNoIndex(int index) {
+		No<T> aux = header;
+		for (int i = 0; i < index; i++) {
+			aux = aux.getProximo();
+		}
+		return aux;
+	}
+
+	public T removeFinal() throws Exception {
+		if (isEmpty())
+			throw new RuntimeException("is Empty");
+
+		length--;
+
+		No<T> aux = getNoIndex(length);
+		No<T> newFinal = getNoIndex(length - 1);
+		newFinal.setProximo(null);
+
+		return aux.getItem();
+	}
+
+	public T removeHeader() throws Exception {
+		if (isEmpty())
+			throw new RuntimeException("is Empty");
+
+		No<T> aux = header;
+		header = header.getProximo();
+		length--;
+		return aux.getItem();
+	}
+
+	public T remove(int index) throws Exception {
+		if (isEmpty())
+			throw new RuntimeException("is Empty");
+
+		if (index <= 0) {
+			return removeHeader();
+		}
+
+		if (index >= length - 1) {
+			return removeFinal();
+		}
+
+		No<T> aux = getNoIndex(index);
+		No<T> beforeAux = getNoIndex(index - 1);
+
+		beforeAux.setProximo(aux.getProximo());
+		length--;
+		return aux.getItem();
+	}
+
+	/**
+	 * make the first element equal null and return it in the initial state
+	 * before cleaning
+	 * 
+	 * @return
+	 */
+	public No<T> killList() {
+		No<T> aux = header;
+		header = null;
+		length = 0;
+		return aux;
+	}
+
+	public T getIndex(int index) {
+		No<T> aux = header;
+		for (int i = 0; i < index; i++) {
+			aux = aux.getProximo();
+		}
+		return aux.getItem();
+	}
+
+	public int length() {
+		return this.length;
+	}
+	
+	public String toString(){
+		String txt = "[ ";
+		
+		int i;
+		for(i = 0; i < length-1;i++ ){
+			txt = txt + getIndex(i)+", ";
+		}
+		
+		txt = txt + getIndex(i);
+		txt = txt+" ]";
+		
+		return txt;
+	}
+}
+
+class No<T> {
+	private T item;
+	private No<T> proximo;
+
+	public No(T e) {
+		this.setItem(e);
+	}
+
+	public No<T> getProximo() {
+		return proximo;
+	}
+
+	public void setProximo(No<T> proximo) {
+		this.proximo = proximo;
+	}
+
+	public T getItem() {
+		return item;
+	}
+
+	public void setItem(T item) {
+		this.item = item;
+	}
+}

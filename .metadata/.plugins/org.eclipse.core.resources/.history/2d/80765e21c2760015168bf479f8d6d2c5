@@ -1,0 +1,59 @@
+package world;
+
+import java.awt.Graphics;
+
+import they.game.Game;
+import tile.Tile;
+import Util.Utils;
+
+public class World {
+	private Game game;
+	private int width, height;
+	private int spawnX, spawnY;
+	private int [][] mapTiles;
+	
+	public World(Game game, String path){
+		this.game = game;
+		loadWorld(path);
+	}
+	
+	public void update(){
+		
+	}
+	
+	public void draw(Graphics g){
+		for(int j = 0; j < height ; j++){
+			for(int i = 0 ; i < width; i++){
+				getTile(i,j).draw(g,i * Tile.TILE_WIDTH,j * Tile.TILE_HEIGHT);
+			}
+		}
+	}
+	
+	public Tile getTile(int x, int y){
+		Tile t = Tile.tiles[mapTiles[x][y]];
+		
+		if(t == null){
+			return Tile.dirtTile;
+		}
+		
+		return t;
+	}
+	
+	private void loadWorld(String path){
+		String file = Utils.loadFileAsString(path);
+		String[] tokens = file.split("\\s+");// \\s+ => any blank space
+		width = Utils.parseInt(tokens[0]);
+		height = Utils.parseInt(tokens[1]);
+		spawnX = Utils.parseInt(tokens[2]);
+		spawnY = Utils.parseInt(tokens[3]);
+		
+		mapTiles = new int [width][height];
+		
+		for(int j = 0; j < height ; j++){
+			for(int i = 0 ; i < width; i++){
+				mapTiles[i][j] = Utils.parseInt(tokens[(i + j * width) + 4]);
+			}
+		}
+	}
+	
+}

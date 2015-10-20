@@ -1,0 +1,32 @@
+package they.graphics;
+
+public class GameCamera {
+	
+	private float xOffset, yOffser;
+	
+	public GameCamera(float xOffset, float yOffset){
+		this.xOffset = xOffset;
+		this.yOffser = yOffset;
+	}
+
+	public void move(float xAmt, float yAmt){
+		this.xOffset = xAmt;
+		this.yOffser = yAmt;
+	}
+	
+	public float getxOffset() {
+		return xOffset;
+	}
+
+	public void setxOffset(float xOffset) {
+		this.xOffset = xOffset;
+	}
+
+	public float getyOffset() {
+		return yOffser;
+	}
+
+	public void setyOffser(float yOffser) {
+		this.yOffser = yOffser;
+	}
+}

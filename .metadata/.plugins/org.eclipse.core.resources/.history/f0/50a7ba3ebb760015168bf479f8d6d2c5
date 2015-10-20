@@ -1,0 +1,52 @@
+package world;
+
+import java.awt.Graphics;
+import java.io.File;
+
+import tile.Tile;
+
+public class World {
+
+	private int width, height;
+	private int [][] mapTiles;
+	
+	public World(String path){
+		loadWorld(path);
+	}
+	
+	public void update(){
+		
+	}
+	
+	public void draw(Graphics g){
+		for(int j = 0; j < width ; j++){
+			for(int i = 0 ; i < height; i++){
+				getTile(i,j).draw(g,i,j);
+			}
+		}
+	}
+	
+	public Tile getTile(int x, int y){
+		Tile t = Tile.tiles[mapTiles[x][y]];
+		if(t == null){
+			return Tile.dirtTile;
+		}
+		return t;
+	}
+	
+	private void loadWorld(String path){
+		File f = new File(path);
+		
+		width = 5;
+		height = 5;
+		mapTiles = new int[width][height];
+		
+		for(int i = 0; i < width ; i++){
+			for(int j = 0 ; j < height; j++){
+				mapTiles[i][j] = 0;
+			}
+		}
+		
+	}
+	
+}

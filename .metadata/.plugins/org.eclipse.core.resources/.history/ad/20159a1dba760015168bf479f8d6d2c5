@@ -1,0 +1,29 @@
+package world;
+
+import java.awt.Graphics;
+import java.io.File;
+
+public class World {
+
+	private int width, height;
+	private int [][] tiles;
+	
+	public World(String path){
+		loadWorld(path);
+	}
+	
+	public void update(){
+		
+	}
+	
+	public void draw(Graphics g){
+		
+	}
+	
+	private void loadWorld(String path){
+		File f = new File(path);
+		
+		
+	}
+	
+}

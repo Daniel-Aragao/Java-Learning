@@ -26,14 +26,19 @@
 <fullyQualifiedTypeName name="javax.security.auth.callback.TextInputCallback"/>
 <fullyQualifiedTypeName name="they.screen.ImageLoader"/>
 <fullyQualifiedTypeName name="they.screen.SpritSheet"/>
-<fullyQualifiedTypeName name="java.awt.image.BufferedImage"/>
 <fullyQualifiedTypeName name="states.State"/>
 <fullyQualifiedTypeName name="states.GameState"/>
 <fullyQualifiedTypeName name="states.StateManager"/>
 <fullyQualifiedTypeName name="states.MenuState"/>
-<fullyQualifiedTypeName name="entity.Entity"/>
-<fullyQualifiedTypeName name="they.graphics.Assets"/>
 <fullyQualifiedTypeName name="entity.creatures.Player"/>
 <fullyQualifiedTypeName name="java.awt.event.KeyListener"/>
 <fullyQualifiedTypeName name="input.KeyManager"/>
+<fullyQualifiedTypeName name="java.awt.image.BufferedImage"/>
+<fullyQualifiedTypeName name="they.graphics.Assets"/>
+<fullyQualifiedTypeName name="tile.DirtTile"/>
+<fullyQualifiedTypeName name="tile.RockTile"/>
+<fullyQualifiedTypeName name="tile.Tile"/>
+<fullyQualifiedTypeName name="java.io.IOException"/>
+<fullyQualifiedTypeName name="Util.Utils"/>
+<fullyQualifiedTypeName name="entity.Entity"/>
 </qualifiedTypeNameHistroy>

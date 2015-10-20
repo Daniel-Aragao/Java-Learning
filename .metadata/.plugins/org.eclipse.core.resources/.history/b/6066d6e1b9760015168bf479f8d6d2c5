@@ -1,0 +1,12 @@
+package world;
+
+public class World {
+
+	private int width, height;
+	private int [][] tiles;
+	
+	public World(){
+		
+	}
+	
+}

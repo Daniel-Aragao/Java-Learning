@@ -11,6 +11,7 @@ import states.MenuState;
 import states.State;
 import they.display.Display;
 import they.graphics.Assets;
+import they.graphics.GameCamera;
 
 public class Game implements Runnable {
 	private Display display;
@@ -26,6 +27,9 @@ public class Game implements Runnable {
 	
 	//Input
 	private KeyManager keyManager;
+	
+	//Camera
+	private GameCamera gameCamera;
 
 	//States
 	private State gameState;
@@ -43,6 +47,8 @@ public class Game implements Runnable {
 		display = new Display(title, dim);
 		display.getFrame().addKeyListener(keyManager);
 		Assets.init();
+		
+		gameCamera = new GameCamera(this, 0, 0);
 		
 		gameState = new GameState(this);
 		menuState = new MenuState(this);
@@ -115,7 +121,16 @@ public class Game implements Runnable {
 	}
 	
 	public KeyManager getKeyManage(){return keyManager;}
+	
+	public GameCamera getGameCamera(){return gameCamera;}
 
+	public int getWidth(){
+		return width;
+	}
+	public int getHeight(){
+		return height;
+	}
+	
 	public synchronized void start() {
 		if (gameLoop) {
 			return;

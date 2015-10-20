@@ -1,0 +1,9 @@
+package Util;
+
+public class Utils {
+
+	public static String loadFileAsString(String path){
+		StringBuilder builder = new StringBuilder();
+	}
+	
+}

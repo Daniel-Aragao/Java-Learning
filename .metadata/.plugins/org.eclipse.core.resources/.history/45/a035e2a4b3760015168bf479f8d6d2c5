@@ -1,0 +1,28 @@
+package tile;
+
+import java.awt.image.BufferedImage;
+
+public class Tile {
+	
+	protected BufferedImage texture;
+	protected final int id;
+	
+	
+	public Tile(BufferedImage texture, int id){
+		this.texture = texture;
+		this.id = id;
+	}
+	
+	public void update(){
+		
+	}
+	
+	public void draw(){
+		
+	}
+	
+	public int getId(){
+		return id;
+	}
+	
+}

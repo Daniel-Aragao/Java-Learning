@@ -1,0 +1,190 @@
+package Util;
+
+public class GenericsDynamicList<T> {
+	private Node<T> header;
+	private int length;
+
+	public int getLength() {
+		return length;
+	}
+
+	public GenericsDynamicList() {
+		this.length = 0;
+	}
+
+	public boolean isEmpty() {
+		if (header == null)
+			return true;
+		return false;
+	}
+
+	public void addBeginning(T element) {
+		if (isEmpty()) {
+			header = new Node<T>(element);
+			this.length++;
+			return;
+		}
+
+		Node<T> aux = new Node<T>(element);
+		aux.setNext(header);
+		header = aux;
+		this.length++;
+	}
+
+	public void addEnd(T element) {
+		if (isEmpty()) {
+			header = new Node<T>(element);
+			this.length++;
+			return;
+		}
+		Node<T> last = getNode(this.length - 1);
+		last.setNext(new Node<T>(element));
+		this.length++;
+	}
+
+	public void add(int index, T element) {
+		if (index <= 0) {
+
+			addBeginning(element);
+
+		} else if (index >= this.length) {
+
+			addEnd(element);
+
+		} else {
+
+			Node<T> nBeforeIndex = getNode(index - 1);
+			Node<T> aux = new Node<T>(element);
+
+			aux.setNext(nBeforeIndex.getNext());
+			nBeforeIndex.setNext(aux);
+
+			this.length++;
+		}
+	}
+
+	public void add(T element) {
+		addEnd(element);
+	}
+
+	public T removeBeginning() {
+		if (header == null)
+			return null;
+
+		Node<T> aux = header;
+		header = header.getNext();
+
+		length--;
+
+		return aux.getElement();
+	}
+
+	public T removeEnd() {
+		if (header == null)
+			return null;
+
+		length--;
+
+		Node<T> newEnd = getNode(length - 1);
+		Node<T> end = newEnd.getNext();
+
+		newEnd.setNext(null);
+
+		return end.getElement();
+	}
+
+	public T remove() {
+		return removeEnd();
+	}
+
+	public T remove(int index) {
+		if (index <= 0)
+			return removeBeginning();
+
+		if (index >= length)
+			return removeEnd();
+
+		Node<T> nBeforeIndex = getNode(index - 1);
+		Node<T> aux = nBeforeIndex.getNext();
+
+		nBeforeIndex.setNext(aux.getNext());
+
+		length--;
+		return aux.getElement();
+
+	}
+
+	public Node<T> killList() {
+		Node<T> aux = this.header;
+		this.header = null;
+		this.length = 0;
+		return aux;
+	}
+
+	public Node<T> getNode(int index) {
+		if (index >= this.length)
+			return null;
+
+		Node<T> aux = header;
+		for (int i = 0; i < index; i++) {
+			aux = aux.getNext();
+		}
+		return aux;
+	}
+
+	public T getElement(int index) {
+		if (index >= this.length)
+			return null;
+
+		Node<T> aux = header;
+		for (int i = 0; i < index; i++) {
+			aux = aux.getNext();
+		}
+		return aux.getElement();
+	}
+
+	public String toString() {
+		if (header == null)
+			return null;
+
+		String returnString = "[";
+		Node<T> aux = header;
+		while (aux.getNext() != null) {
+			returnString += " " + aux.getElement() + ",";
+			aux = aux.getNext();
+		}
+		return returnString += " " + aux.getElement() + " ]";
+
+	}
+	
+	public void setElement(int index, T element){
+		getNode(index).setElement(element);
+	}
+
+}
+
+class Node<T> {
+	private T element;
+	private Node<T> next;
+
+	public Node(T element) {
+		this.element = element;
+	}
+
+	public T getElement() {
+		return this.element;
+	}
+
+	public void setElement(T element) {
+		this.element = element;
+	}
+
+	public Node<T> getNext() {
+		return this.next;
+	}
+
+	public void setNext(Node<T> next) {
+		this.next = next;
+
+	}
+}
