@@ -27,7 +27,7 @@ public class ListPanel extends JPanel{
 	private JTextField textBox;
 	private JList<String> list;
 	private ArrayList<Cliente> listaArray;
-	private int selecionado;
+	private Cliente selecionado;
 	private JButton selectButton;
 	
 	private SelectListener selectListener; 
@@ -43,11 +43,12 @@ public class ListPanel extends JPanel{
 		list = new JList<String>();
 		
 		DefaultListModel<String> model = new DefaultListModel<String>();
-		for(Cliente c: lista){
-			model.addElement(c.getNome());
-		}
+		model.addElement("Daniel");
+		model.
+		model.addElement("Thiago");
+		model.addElement("Ricson");
+		model.addElement("Michel");
 		list.setModel(model);
-		
 		
 		list.setBorder(BorderFactory.createEtchedBorder());
 		list.setSelectedIndex(0);
@@ -58,10 +59,10 @@ public class ListPanel extends JPanel{
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				selecionado = list.getSelectedIndex();
+				selecionado = list.getSelectedValue();
 				
 				if(selectListener != null){
-					selectListener.listClientSelectedEvent(lista.get(selecionado));
+					selectListener.listClientSelectedEvent(null);
 				}
 				
 			}

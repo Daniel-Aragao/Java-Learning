@@ -12,9 +12,7 @@ public class Cliente {
 	}
 	public Cliente(String nome, String nPedidos, String endereço,String ultimoPedido){
 		this.nome = nome;
-		this.nPedidos = Integer.parseInt(nPedidos);
 		this.endereço = endereço;
-		this.ultimoPedido = ultimoPedido;
 	}
 	public Cliente(){
 	}

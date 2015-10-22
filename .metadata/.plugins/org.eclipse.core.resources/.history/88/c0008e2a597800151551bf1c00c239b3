@@ -27,7 +27,7 @@ public class ListPanel extends JPanel{
 	private JTextField textBox;
 	private JList<String> list;
 	private ArrayList<Cliente> listaArray;
-	private int selecionado;
+	private Cliente selecionado;
 	private JButton selectButton;
 	
 	private SelectListener selectListener; 
@@ -58,10 +58,10 @@ public class ListPanel extends JPanel{
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				selecionado = list.getSelectedIndex();
+				selecionado = list.getSelectedValue();
 				
 				if(selectListener != null){
-					selectListener.listClientSelectedEvent(lista.get(selecionado));
+					selectListener.listClientSelectedEvent(null);
 				}
 				
 			}

@@ -3,18 +3,14 @@ package App;
 public class Cliente {
 	private int Id;
 	private String nome;
-	private int nPedidos;
 	private String endereço;
-	private String ultimoPedido;
 	
 	public Cliente(int id){
 		this.Id = id;
 	}
-	public Cliente(String nome, String nPedidos, String endereço,String ultimoPedido){
+	public Cliente(String nome, String endereço){
 		this.nome = nome;
-		this.nPedidos = Integer.parseInt(nPedidos);
 		this.endereço = endereço;
-		this.ultimoPedido = ultimoPedido;
 	}
 	public Cliente(){
 	}

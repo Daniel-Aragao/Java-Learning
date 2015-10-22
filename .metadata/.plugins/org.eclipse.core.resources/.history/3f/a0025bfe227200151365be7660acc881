@@ -1,7 +1,0 @@
-package entity.creatures;
-
-import Creature;
-
-public class Player extends Creature {
-
-}

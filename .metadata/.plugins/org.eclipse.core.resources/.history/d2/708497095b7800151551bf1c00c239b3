@@ -20,14 +20,13 @@ public class Import {
 		try {
 			arquivo = new FileReader(f);
 			leituraArquivo = new BufferedReader(arquivo);
-			String line;
-			while((line = leituraArquivo.readLine()) != null){
-				String[] atribuidor = line.split(";");
+			
+			while(leituraArquivo.readLine() != null){
+				String[] atribuidor = leituraArquivo.readLine().split(";");
 				lista.add(new Cliente(atribuidor[0],atribuidor[1],atribuidor[2],atribuidor[3]));
 			}
 			
-			leituraArquivo.close();
-			arquivo.close();
+			
 			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

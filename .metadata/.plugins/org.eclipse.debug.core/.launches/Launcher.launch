@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <launchConfiguration type="org.eclipse.jdt.launching.localJavaApplication">
 <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_PATHS">
-<listEntry value="/CodeNMore project/src/they/game/Launcher.java"/>
+<listEntry value="/Agenda de Clientes (ponto de agua)/src/App/launcher.java"/>
 </listAttribute>
 <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_TYPES">
 <listEntry value="1"/>
 </listAttribute>
-<stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="they.game.Launcher"/>
-<stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="CodeNMore project"/>
+<stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="App.launcher"/>
+<stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="Agenda de Clientes (ponto de agua)"/>
 </launchConfiguration>
