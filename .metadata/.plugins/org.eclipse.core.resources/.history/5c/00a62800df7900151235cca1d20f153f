@@ -368,7 +368,7 @@ public class ClientPanel extends JPanel {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				if(!fieldName.getText().equals("<Novo>")){
+				if(currentClient.getNome().equals("<Novo>")){
 					fieldName.setEditable(false);
 					fieldEndereço.setEditable(false);
 					fieldPedidos.setEditable(false);

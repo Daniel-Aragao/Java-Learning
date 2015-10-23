@@ -51,7 +51,7 @@ public class Import {
 				printer.println(lista[i].getNome() + ";" + lista[i].getnPedidos()
 						+ ";" + lista[i].getEndereço() + ";"
 						+ lista[i].getTelefone1() + ";" + lista[i].getTelefone2()
-						);
+						+ ";" );
 			}
 			
 			printer.close();
