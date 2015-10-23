@@ -5,18 +5,25 @@ public class Cliente {
 	private String nome;
 	private int nPedidos;
 	private String endereço;
-	private String ultimoPedido;
+	private String telefone1;
+	private String telefone2;	
 	
 	public Cliente(int id){
 		this.Id = id;
 	}
-	public Cliente(String nome, String nPedidos, String endereço,String ultimoPedido){
+	public Cliente(String nome, String nPedidos, String endereço,String telefone1,String telefone2){
 		this.nome = nome;
-		this.nPedidos = Integer.parseInt(nPedidos);
+		this.setnPedidos(Integer.parseInt(nPedidos));
 		this.endereço = endereço;
-		this.ultimoPedido = ultimoPedido;
+		this.setTelefone1(telefone1);
+		this.setTelefone2(telefone2);
 	}
 	public Cliente(){
+		this.nome = "<Novo>";		
+	}
+	@Override
+	public String toString() {
+		return this.nome;
 	}
 	
 	public int getId() {
@@ -36,5 +43,23 @@ public class Cliente {
 	}
 	public void setEndereço(String endereço) {
 		this.endereço = endereço;
+	}
+	public int getnPedidos() {
+		return nPedidos;
+	}
+	public void setnPedidos(int nPedidos) {
+		this.nPedidos = nPedidos;
+	}
+	public String getTelefone1() {
+		return telefone1;
+	}
+	public void setTelefone1(String telefone1) {
+		this.telefone1 = telefone1;
+	}
+	public String getTelefone2() {
+		return telefone2;
+	}
+	public void setTelefone2(String telefone2) {
+		this.telefone2 = telefone2;
 	}	
 }

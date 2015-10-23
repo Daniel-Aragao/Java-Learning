@@ -1,0 +1,158 @@
+package framesAndPanes;
+
+import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.border.Border;
+
+import App.Cliente;
+
+@SuppressWarnings("serial")
+public class ClientPanel extends JPanel {
+	private JLabel labelName;
+	private JLabel labelPedidos;
+	private JLabel labelEndereço;
+	private JLabel labelTelefone1;
+	private JLabel labelTelefone2;
+
+	private JTextField fieldName;
+	private JTextField fieldPedidos;
+	private JTextField fieldEndereço;
+	private JTextField fieldTelefone1;
+	private JTextField fieldTelefone2;
+
+	private JButton saveButton;
+	private JButton criarButton;
+
+	public ClientPanel() {
+		Dimension dim = getPreferredSize();
+		dim.width = MainFrame.WIDTH - ListPanel.WIDTH;
+		setPreferredSize(dim);
+
+		labelName = new JLabel("Nome: ");
+		labelPedidos = new JLabel("Pedidos: ");
+		labelEndereço = new JLabel("Endereço: ");
+		labelTelefone1 = new JLabel("Telefone (1): ");
+		labelTelefone2 = new JLabel("Telefone (2): ");
+		saveButton = new JButton("Salvar Alterações");
+		criarButton = new JButton("Cadastrar Cliente");
+
+		fieldName = new JTextField(10);
+		fieldPedidos = new JTextField(10);
+		fieldEndereço = new JTextField(10);
+		fieldTelefone1 = new JTextField(10);
+		fieldTelefone2 = new JTextField(10);
+
+		////LAYOUT/////
+		createLayout();
+		////LAYOUT/////		
+		
+		
+		
+		
+	}
+	
+	public void showClient(Cliente c){
+		labelName.setText(c.getNome());
+		labelEndereço.setText(c.getEndereço());
+		labelPedidos.setText(""+c.getnPedidos());
+		labelTelefone1.setText(c.getTelefone1());
+		labelTelefone2.setText(c.getTelefone2());
+	}
+	
+	
+	
+	public void createLayout(){
+		Border innerBorder = BorderFactory.createTitledBorder("Cliente: ");
+		Border outerBorder = BorderFactory.createEmptyBorder(5, 5, 5, 5);
+		setBorder(BorderFactory.createCompoundBorder(outerBorder, innerBorder));
+
+		/////L////////A//////////Y///////////O///////////U////////////T//////////
+		//////////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////////////////
+		GridBagLayout gbl = new GridBagLayout();
+		setLayout(gbl);
+
+		GridBagConstraints gc = gbl.getConstraints(this);
+
+		gc.fill = GridBagConstraints.NONE;
+		// //////////////FIRST COLUMN/////////////
+
+		// FIRST LINE
+		gc.weightx = 1;
+		gc.weighty = 0.1;
+
+		gc.gridx = 0;
+		gc.gridy = 0;
+		gc.anchor = GridBagConstraints.SOUTH;
+		this.add(labelName, gc);
+		// SECOND LINE
+		gc.gridy = 1;
+		gc.anchor = GridBagConstraints.NORTH;
+		this.add(fieldName, gc);
+
+		////////THIRD LINE
+		gc.gridy = 2;
+		gc.anchor = GridBagConstraints.SOUTH;
+		this.add(labelPedidos, gc);
+		// FOURTH LINE
+		gc.gridy = 3;
+		gc.anchor = GridBagConstraints.NORTH;
+		this.add(fieldPedidos, gc);
+
+		////////FIFTH LINE
+		gc.gridy = 4;
+		gc.anchor = GridBagConstraints.SOUTH;
+		this.add(labelEndereço, gc);
+		// SIXTH LINE
+		gc.gridy = 5;
+		gc.anchor = GridBagConstraints.NORTH;
+		this.add(fieldEndereço, gc);
+		
+		//SEVENTH LINE
+		gc.weighty = 2;
+		gc.gridy = 6;
+		gc.anchor = GridBagConstraints.CENTER;
+		this.add(criarButton, gc);
+		
+		
+		// //////////////SECOND COLUMN/////////////
+		gc.weighty = 0.1;
+		gc.gridx = 1;
+		// FIRST LINE
+		gc.gridy = 0;
+		gc.anchor = GridBagConstraints.SOUTH;
+		this.add(labelTelefone1, gc);
+		// SECOND LINE
+		gc.gridy = 1;
+		gc.anchor = GridBagConstraints.NORTH;
+		this.add(fieldTelefone1, gc);
+
+		// THIRD LINE
+		gc.gridy = 2;
+		gc.anchor = GridBagConstraints.SOUTH;
+		this.add(labelTelefone2, gc);
+		// FOURTH LINE
+		gc.gridy = 3;
+		gc.anchor = GridBagConstraints.NORTH;
+		this.add(fieldTelefone2, gc);
+
+		// SIXTH LINE
+		gc.weighty = 1;
+		gc.gridy = 5;
+		gc.anchor = GridBagConstraints.NORTH;
+		this.add(saveButton, gc);
+		
+		//////////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////////////////
+		/////L////////A//////////Y///////////O///////////U////////////T//////////
+
+	}
+
+}

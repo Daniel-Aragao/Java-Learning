@@ -1,0 +1,52 @@
+package App;
+
+public class Cliente {
+	private int Id;
+	private String nome;
+	private int nPedidos;
+	private String endereço;
+	private String ultimoPedido;
+	
+	public Cliente(int id){
+		this.Id = id;
+	}
+	public Cliente(String nome, String nPedidos, String endereço,String telefone1,String telefone2){
+		this.nome = nome;
+		this.setnPedidos(Integer.parseInt(nPedidos));
+		this.endereço = endereço;
+		this.ultimoPedido = ultimoPedido;
+	}
+	
+	@Override
+	public String toString() {
+		return this.nome;
+	}
+	
+	public Cliente(){
+	}
+	
+	public int getId() {
+		return Id;
+	}
+	public void setId(int id) {
+		Id = id;
+	}
+	public String getNome() {
+		return nome;
+	}
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+	public String getEndereço() {
+		return endereço;
+	}
+	public void setEndereço(String endereço) {
+		this.endereço = endereço;
+	}
+	public int getnPedidos() {
+		return nPedidos;
+	}
+	public void setnPedidos(int nPedidos) {
+		this.nPedidos = nPedidos;
+	}	
+}

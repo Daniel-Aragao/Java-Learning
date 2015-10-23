@@ -1,13 +1,14 @@
 package framesAndPanes;
 import java.awt.BorderLayout;
 import java.io.File;
-import java.util.ArrayList;
 
 import javax.swing.JFrame;
 
-import util.Import;
 import App.Cliente;
+import framesAndPanes.listeners.AddNewListener;
+import framesAndPanes.listeners.ExcluirListener;
 import framesAndPanes.listeners.SelectListener;
+import framesAndPanes.listeners.UpdateButtonsListener;
 
 
 @SuppressWarnings("serial")
@@ -16,32 +17,51 @@ public class MainFrame extends JFrame{
 	public static final int WIDTH = 600,
 							HEIGHT = 400;
 	public static final File FILE = new File("res/clientes.txt");
+	
 	//Panes
 	private ListPanel listPanel;
-	private AddPanel addFrame;
-	private InfoPanel infoPanel;
 	private ClientPanel clientPanel;
 	
 	//Lista
-	ArrayList<Cliente> lista;
+	
 	
 	public MainFrame(){
-		lista = Import.listaDeClientes(MainFrame.FILE);
-		listPanel = new ListPanel(lista);
+		listPanel = new ListPanel();
 		
-		clientPanel = new ClientPanel();
+		clientPanel = new ClientPanel(this);
+		
 		createFrame();
+		////////////LISTENER INSERTION////////////////////////////
+		ListPanelListenerClass lplc = new ListPanelListenerClass();
+		listPanel.setSelectListener(lplc);
 		
-		listPanel.setSelectListener(new SelectListener(){
+		clientPanel.addNewListener(new AddNewListener(){
 
 			@Override
-			public void listClientSelectedEvent(Cliente cliente) {
-				// TODO Auto-generated method stub
+			public void novoSavedEvent(Cliente cliente) {
+				listPanel.newNovo();
+			}
+			
+		});
+		clientPanel.addExcluirListener(new ExcluirListener(){
+
+			@Override
+			public void excluirAction(Cliente c) {
+				listPanel.excluirDaLista(c);				
+			}
+			
+		});
+		clientPanel.addUpdateButtonsListener(new UpdateButtonsListener(){
+
+			@Override
+			public void updaterPressed() {
+				listPanel.rebuildCaller();
 				
 			}
 			
 		});
 		
+		////////////LISTENER INSERTION////////////////////////////		
 		
 		
 	}
@@ -62,5 +82,19 @@ public class MainFrame extends JFrame{
 	}
 	
 	
+	//HANDLERS CLASSES
+	private class ListPanelListenerClass implements SelectListener{
+		@Override
+		public void listClientSelectedEvent(Cliente cliente) {
+			clientPanel.showClient(cliente);
+		}
+
+		@Override
+		public void listClientEditEvent(Cliente cliente) {
+			clientPanel.editEvent(cliente);
+			
+		}
+	}
 	
 }
+

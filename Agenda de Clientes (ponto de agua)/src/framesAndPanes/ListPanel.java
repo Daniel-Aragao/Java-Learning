@@ -4,10 +4,12 @@ package framesAndPanes;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.ArrayList;
+import java.util.Random;
 
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
@@ -15,104 +17,210 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
-import javax.swing.ListModel;
 import javax.swing.border.Border;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
+import util.Import;
 import App.Cliente;
 import framesAndPanes.listeners.SelectListener;
 
-public class ListPanel extends JPanel{
+@SuppressWarnings("serial")
+public class ListPanel extends JPanel {
+	public static final int listPanelWIDTH = 150;
+
 	private JLabel search;
-	private JTextField textBox;
-	private JList<String> list;
-	private ArrayList<Cliente> listaArray;
-	private int selecionado;
-	private JButton selectButton;
-	
-	private SelectListener selectListener; 
-	
-	public ListPanel(ArrayList<Cliente> lista){
+	private JTextField searchtextBox;
+	private JList<Cliente> list;
+	private JButton Editar;
+
+	private Cliente selecionado;
+
+	private ArrayList<Cliente> listArray;
+	private ListModelsManager<Cliente> listModels;
+
+	private SelectListener selectListener;
+	private DefaultListModel<Cliente> model;
+
+	public ListPanel() {
 		Dimension dim = getPreferredSize();
-		dim.width = 150;
+		dim.width = listPanelWIDTH;
 		setPreferredSize(dim);
-		
-		search = new JLabel("Search: ");		
-		textBox = new JTextField(10);
-		
-		list = new JList<String>();
-		
-		DefaultListModel<String> model = new DefaultListModel<String>();
-		for(Cliente c: lista){
-			model.addElement(c.getNome());
-		}
+
+		search = new JLabel("Search: ");
+		searchtextBox = new JTextField(10);
+
+		listArray = Import.listaDeClientes(MainFrame.FILE);
+		list = new JList<Cliente>();
+
+		createModel();
+
 		list.setModel(model);
-		
-		
+
 		list.setBorder(BorderFactory.createEtchedBorder());
-		list.setSelectedIndex(0);
-		
-		
-		selectButton = new JButton("Selecionar");
-		selectButton.addActionListener(new ActionListener(){
+		// list.setSelectedIndex(0);
+
+		Editar = new JButton("Editar");
+		Editar.setEnabled(false);
+		Editar.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				selecionado = list.getSelectedIndex();
-				
-				if(selectListener != null){
-					selectListener.listClientSelectedEvent(lista.get(selecionado));
+				selecionado = list.getSelectedValue();
+
+				if (selectListener != null) {
+					selectListener.listClientEditEvent(selecionado);
 				}
-				
+
+				Editar.setEnabled(false);
 			}
-			
+
 		});
-		
-		Border innerBorder = BorderFactory.createTitledBorder("Clientes: ");
-		Border outerBorder = BorderFactory.createEmptyBorder(5,5,5,5);
-		setBorder(BorderFactory.createCompoundBorder(outerBorder,innerBorder));
-		
+
+		list.addListSelectionListener(new ListSelectionListener() {
+
+			@Override
+			public void valueChanged(ListSelectionEvent arg0) {
+				selecionado = list.getSelectedValue();
+
+				if (selectListener != null) {
+					selectListener.listClientSelectedEvent(selecionado);
+				}
+				if (selecionado.getNome() != "<Novo>") {
+					Editar.setEnabled(true);
+				} else {
+					Editar.setEnabled(false);
+				}
+			}
+		});
+
+		this.searchtextBox.addKeyListener(new KeyListener() {
+
+			@Override
+			public void keyPressed(KeyEvent arg0) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void keyTyped(KeyEvent arg0) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void keyReleased(KeyEvent k) {
+
+				if (k.getKeyCode() == KeyEvent.VK_ENTER) {
+					model = listModels.searchListModel(searchtextBox.getText());
+					list.setModel(model);
+				}
+
+			}
+
+		});
+
+		creatLayout();
+	}
+
+	private void creatLayout() {
+		// /////////LAYOUT////////////LAYOUT/////////////LAYOUT/////////////////
+
+		Border innerBorder = BorderFactory
+				.createTitledBorder("Lista de clientes: ");
+		Border outerBorder = BorderFactory.createEmptyBorder(5, 5, 5, 5);
+		setBorder(BorderFactory.createCompoundBorder(outerBorder, innerBorder));
+
 		GridBagLayout gl = new GridBagLayout();
 		this.setLayout(gl);
-		
+
 		GridBagConstraints gc = gl.getConstraints(this);
-		
-		
+
 		gc.fill = GridBagConstraints.NONE;
 		gc.weightx = 1;
 		gc.weighty = 0.1;
 		gc.gridx = 0;
-		
-		/////////FIRST LINE///////////////////////////////////
+
+		// ///////FIRST LINE///////////////////////////////////
 		gc.gridy = 0;
 		gc.gridx = 0;
 		gc.anchor = GridBagConstraints.LINE_START;
-		this.add(search,gc);
-		
-		/////////SECOND LINE//////////////////////////////////
+		this.add(search, gc);
+
+		// ///////SECOND LINE//////////////////////////////////
 		gc.gridy = 1;
-		
+
 		gc.anchor = GridBagConstraints.LINE_START;
-		this.add(textBox,gc);
-		
-		/////////THIRD LINE///////////////////////////////////
+		this.add(searchtextBox, gc);
+
+		// ///////THIRD LINE///////////////////////////////////
 		gc.gridy = 2;
 		gc.fill = GridBagConstraints.BOTH;
 		gc.weighty = 2;
 		gc.anchor = GridBagConstraints.CENTER;
-		this.add(list,gc);
-		
-		////////FOURTH LINE///////////////////////////////////
+		this.add(new JScrollPane(list), gc);
+
+		// //////FOURTH LINE///////////////////////////////////
 		gc.gridy = 3;
 		gc.fill = GridBagConstraints.NONE;
-		
+
 		gc.weighty = 1;
-		this.add(this.selectButton,gc);
-		
+		this.add(this.Editar, gc);
+
 	}
-	
-	public void setSelectListener(SelectListener listener){
+
+	private void createModel() {
+		listModels = new ListModelsManager<>();
+		model = this.listModels.getListModel();
+
+		for (Cliente c : listArray) {
+			listModels.addInModel(c);
+		}
+
+		listModels.addInModel(new Cliente());
+	}
+
+	public void excluirDaLista(Cliente c) {
+		DefaultListModel<Cliente> actualListModel = listModels.getListModel();
+		
+		int indexOfC = actualListModel.indexOf(c);
+
+		Random randint = new Random();
+
+		int rand;
+		do {
+			rand = randint.nextInt(actualListModel.size());
+		} while (rand == indexOfC);
+
+		list.setSelectedIndex(rand);
+		
+		listModels.getListModel().removeElement(c);
+		
+		rebuildCaller();
+	}
+
+	public Cliente getCliente(int index) {
+		return listModels.getListModel().elementAt(index);
+	}
+
+	public void newNovo() {
+		listModels.addInModel(new Cliente());
+		rebuildCaller();
+	}
+
+	public void setSelectListener(SelectListener listener) {
 		this.selectListener = listener;
 	}
 	
+	public void rebuildCaller(){
+		Cliente[] vetor = new Cliente[listModels.getListModel().getSize()];
+		
+		for(int i = 0; i < model.getSize(); i++){
+			vetor[i] = model.get(i);
+		}
+		Import.rebuildArchive(vetor, MainFrame.FILE);
+	}
+
 }

@@ -1,0 +1,5 @@
+package framesAndPanes.listeners;
+
+public interface UpdateButtonsListener {
+
+}

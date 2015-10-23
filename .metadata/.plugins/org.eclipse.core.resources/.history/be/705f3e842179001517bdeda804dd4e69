@@ -1,0 +1,11 @@
+package framesAndPanes.listeners;
+
+import App.Cliente;
+
+public class ListPanelListenerClass implements SelectListener{
+	@Override
+	public void listClientSelectedEvent(Cliente cliente) {
+		// TODO Auto-generated method stub
+		
+	}
+}

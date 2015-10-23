@@ -1,0 +1,174 @@
+package framesAndPanes;
+
+//import java.awt.FlowLayout;
+import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.MouseListener;
+import java.util.ArrayList;
+
+import javax.swing.BorderFactory;
+import javax.swing.DefaultListModel;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextField;
+import javax.swing.border.Border;
+import javax.swing.event.ListDataEvent;
+import javax.swing.event.ListDataListener;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+
+import util.Import;
+import App.Cliente;
+import framesAndPanes.listeners.SelectListener;
+
+@SuppressWarnings("serial")
+public class ListPanel extends JPanel {
+	private JLabel search;
+	private JTextField searchtextBox;
+	private JList<Cliente> list;
+	private JButton Editar;
+	
+	private Cliente selecionado;
+	
+	private ArrayList<Cliente> listArray;
+	private ListModelsManager<Cliente> listModels;
+	
+	private SelectListener selectListener;
+	private DefaultListModel<Cliente> model;
+
+	public ListPanel() {
+		Dimension dim = getPreferredSize();
+		dim.width = 150;
+		setPreferredSize(dim);
+
+		search = new JLabel("Search: ");
+		searchtextBox = new JTextField(10);
+
+		listArray = Import.listaDeClientes(MainFrame.FILE);
+		list = new JList<Cliente>();
+
+		createModel();
+
+		list.setModel(model);
+
+		list.setBorder(BorderFactory.createEtchedBorder());
+		list.setSelectedIndex(0);
+
+		Editar = new JButton("Editar");
+		Editar.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				
+
+			}
+
+		});
+		
+		list.addListSelectionListener(new ListSelectionListener() {
+			
+			@Override
+			public void valueChanged(ListSelectionEvent arg0) {
+				selecionado = list.getSelectedValue();
+
+				if (selectListener != null) {
+					selectListener.listClientSelectedEvent(selecionado);
+				}
+			}
+		});
+		
+		this.searchtextBox.addKeyListener(new KeyListener() {
+
+			@Override
+			public void keyPressed(KeyEvent arg0) {
+				// TODO Auto-generated method stub
+
+			}
+			@Override
+			public void keyTyped(KeyEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void keyReleased(KeyEvent k) {
+				
+				if (k.getKeyCode() == k.VK_ENTER) {
+					System.out.println("EnterPressed");
+					System.out.println(searchtextBox.getText());
+					model = listModels.searchListModel(searchtextBox.getText());
+					list.setModel(model);
+				}
+
+			}
+
+
+		});
+
+		// /////////LAYOUT////////////LAYOUT/////////////LAYOUT/////////////////
+
+		Border innerBorder = BorderFactory.createTitledBorder("Clientes: ");
+		Border outerBorder = BorderFactory.createEmptyBorder(5, 5, 5, 5);
+		setBorder(BorderFactory.createCompoundBorder(outerBorder, innerBorder));
+
+		GridBagLayout gl = new GridBagLayout();
+		this.setLayout(gl);
+
+		GridBagConstraints gc = gl.getConstraints(this);
+
+		gc.fill = GridBagConstraints.NONE;
+		gc.weightx = 1;
+		gc.weighty = 0.1;
+		gc.gridx = 0;
+
+		// ///////FIRST LINE///////////////////////////////////
+		gc.gridy = 0;
+		gc.gridx = 0;
+		gc.anchor = GridBagConstraints.LINE_START;
+		this.add(search, gc);
+
+		// ///////SECOND LINE//////////////////////////////////
+		gc.gridy = 1;
+
+		gc.anchor = GridBagConstraints.LINE_START;
+		this.add(searchtextBox, gc);
+
+		// ///////THIRD LINE///////////////////////////////////
+		gc.gridy = 2;
+		gc.fill = GridBagConstraints.BOTH;
+		gc.weighty = 2;
+		gc.anchor = GridBagConstraints.CENTER;
+		this.add(new JScrollPane(list), gc);
+
+		// //////FOURTH LINE///////////////////////////////////
+		gc.gridy = 3;
+		gc.fill = GridBagConstraints.NONE;
+
+		gc.weighty = 1;
+		this.add(this.Editar, gc);
+
+	}
+
+	private void createModel() {
+		listModels = new ListModelsManager<>();
+		model = this.listModels.getListModel();
+
+		for (Cliente c : listArray) {
+			listModels.addInModel(c);
+		}
+
+	}
+
+	public void setSelectListener(SelectListener listener) {
+		this.selectListener = listener;
+	}
+
+}
