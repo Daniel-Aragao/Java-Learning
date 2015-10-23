@@ -14,12 +14,12 @@ public class Cliente {
 	public Cliente(String nome, String nPedidos, String endereço,String telefone1,String telefone2){
 		this.nome = nome;
 		
-		try{
+		if(nPedidos!=null && nPedidos!=";"){
+			System.out.println("  "+nPedidos);
 			this.setnPedidos(Integer.parseInt(nPedidos));
-		}catch(NumberFormatException e){
-			this.nPedidos = 0;
+		}else{
+			this.setnPedidos(0);
 		}
-		
 		
 		this.endereço = endereço;
 		this.setTelefone1(telefone1);

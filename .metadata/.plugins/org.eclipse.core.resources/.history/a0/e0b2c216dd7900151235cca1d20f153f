@@ -17,7 +17,7 @@ public class Cliente {
 		try{
 			this.setnPedidos(Integer.parseInt(nPedidos));
 		}catch(NumberFormatException e){
-			this.nPedidos = 0;
+			
 		}
 		
 		
