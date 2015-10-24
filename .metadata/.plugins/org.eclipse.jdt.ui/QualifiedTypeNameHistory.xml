@@ -45,4 +45,7 @@
 <fullyQualifiedTypeName name="java.awt.GridBagConstraints"/>
 <fullyQualifiedTypeName name="javax.swing.JScrollBar"/>
 <fullyQualifiedTypeName name="javax.swing.JScrollPane"/>
+<fullyQualifiedTypeName name="framesAndPanes.ListPanel"/>
+<fullyQualifiedTypeName name="java.util.EventListener"/>
+<fullyQualifiedTypeName name="framesAndPanes.listeners.UpdateButtonsListener"/>
 </qualifiedTypeNameHistroy>
