@@ -48,4 +48,6 @@
 <fullyQualifiedTypeName name="framesAndPanes.ListPanel"/>
 <fullyQualifiedTypeName name="java.util.EventListener"/>
 <fullyQualifiedTypeName name="framesAndPanes.listeners.UpdateButtonsListener"/>
+<fullyQualifiedTypeName name="java.util.Locale"/>
+<fullyQualifiedTypeName name="java.awt.event.KeyEvent"/>
 </qualifiedTypeNameHistroy>

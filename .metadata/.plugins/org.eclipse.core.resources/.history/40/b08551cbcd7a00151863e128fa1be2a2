@@ -1,0 +1,458 @@
+package framesAndPanes;
+
+import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.border.Border;
+
+import App.Cliente;
+import framesAndPanes.listeners.AddNewListener;
+import framesAndPanes.listeners.ExcluirListener;
+import framesAndPanes.listeners.UpdateButtonsListener;
+
+@SuppressWarnings("serial")
+public class ClientPanel extends JPanel {
+	private JLabel labelName;
+	private JLabel labelPedidos;
+	private JLabel labelEndereço;
+	private JLabel labelTelefone1;
+	private JLabel labelTelefone2;
+
+	private JTextField fieldName;
+	private JTextField fieldPedidos;
+	private JTextArea fieldEndereço;
+	private JTextField fieldTelefone1;
+	private JTextField fieldTelefone2;
+
+	private JButton saveButton;
+	private JButton cancelButton;
+	private JButton criarButton;
+	private JButton adicionarPedido;
+	private JButton excluir;
+	private Cliente currentClient;
+	
+	private MainFrame mainframe;
+	
+	private AddNewListener addNewListener;
+	private ExcluirListener excluirListener;
+	private UpdateButtonsListener updateButtonsListeners;
+
+	public ClientPanel(MainFrame mainframe) {
+		this.mainframe = mainframe;
+		
+		Dimension dim = getPreferredSize();
+		dim.width = MainFrame.WIDTH - ListPanel.WIDTH;
+		setPreferredSize(dim);
+
+		labelName = new JLabel("Nome: ");
+		labelPedidos = new JLabel("Pedidos: ");
+		labelEndereço = new JLabel("Endereço: ");
+		labelTelefone1 = new JLabel("Telefone (1): ");
+		labelTelefone2 = new JLabel("Telefone (2): ");
+		saveButton = new JButton("Salvar Alterações");
+		criarButton = new JButton("Cadastrar Cliente");
+		cancelButton = new JButton("Cancelar");
+		adicionarPedido = new JButton("Adicionar Pedido");
+		excluir = new JButton("Excluir");
+
+		fieldName = new JTextField(10);
+		fieldPedidos = new JTextField(10);
+		fieldEndereço = new JTextArea();
+		fieldTelefone1 = new JTextField(10);
+		fieldTelefone2 = new JTextField(10);
+
+		fieldEndereço.setLineWrap(true);
+		fieldName.setEditable(false);
+		fieldEndereço.setEditable(false);
+		fieldPedidos.setEditable(false);
+		fieldTelefone1.setEditable(false);
+		fieldTelefone2.setEditable(false);
+		saveButton.setEnabled(false);
+		cancelButton.setEnabled(false);
+		criarButton.setEnabled(false);
+		adicionarPedido.setEnabled(false);
+		excluir.setEnabled(false);
+		
+		fieldPedidos.addKeyListener(digitOnlyAdapter());
+		fieldTelefone1.addKeyListener(digitOnlyAdapter());
+		fieldTelefone2.addKeyListener(digitOnlyAdapter());
+		
+		
+		cancelButtonEvent();
+		saveButtonEvent();
+		criarButtonEvent();
+		adicionarPedidoEvent();
+		excluirButtonEvent();
+		
+		////LAYOUT/////
+		createLayout();
+		////LAYOUT/////		
+		
+		
+		
+		
+	}
+	
+	private KeyAdapter digitOnlyAdapter() {
+		KeyAdapter a = new KeyAdapter(){
+			public void keyTyped(KeyEvent e){
+				
+				if(!Character.isDigit(e.getKeyChar())||(e.getKeyChar() == KeyEvent.VK_SEMICOLON)){
+					e.consume();
+				}
+				
+				
+			}
+		};
+		
+		return a ;
+	}
+
+	public void showClient(Cliente c){
+		this.currentClient = c;
+		
+		if(c != null){
+			fieldName.setText(currentClient.getNome());
+			fieldName.setEditable(false);;
+			
+			fieldEndereço.setText(currentClient.getEndereço());
+			fieldEndereço.setEditable(false);
+			
+			fieldPedidos.setText(""+currentClient.getnPedidos());
+			fieldPedidos.setEditable(false);
+			
+			fieldTelefone1.setText(currentClient.getTelefone1());
+			fieldTelefone1.setEditable(false);
+			
+			fieldTelefone2.setText(currentClient.getTelefone2());
+			fieldTelefone2.setEditable(false);
+			
+			saveButton.setEnabled(false);
+			cancelButton.setEnabled(false);
+			criarButton.setEnabled(false);
+			adicionarPedido.setEnabled(true);
+			excluir.setEnabled(true);
+			
+			if(c.getNome().equals("<Novo>")){
+				editNovoEvent(c);
+			}
+		}
+	}
+	
+	
+	
+	
+
+	public void createLayout(){
+		Border innerBorder = BorderFactory.createTitledBorder("Cliente: ");
+		Border outerBorder = BorderFactory.createEmptyBorder(5, 5, 5, 5);
+		setBorder(BorderFactory.createCompoundBorder(outerBorder, innerBorder));
+
+		/////L////////A//////////Y///////////O///////////U////////////T//////////
+		//////////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////////////////
+		GridBagLayout gbl = new GridBagLayout();
+		setLayout(gbl);
+
+		GridBagConstraints gc = gbl.getConstraints(this);
+
+		gc.fill = GridBagConstraints.NONE;
+		// //////////////FIRST COLUMN/////////////
+
+		// FIRST LINE
+		gc.weightx = 1;
+		gc.weighty = 0.1;
+
+		gc.gridx = 0;
+		gc.gridy = 0;
+		gc.anchor = GridBagConstraints.SOUTH;
+		this.add(labelName, gc);
+		// SECOND LINE
+		gc.gridy = 1;
+		gc.anchor = GridBagConstraints.NORTH;
+		this.add(fieldName, gc);
+
+		////////THIRD LINE
+		gc.gridy = 2;
+		gc.anchor = GridBagConstraints.SOUTH;
+		this.add(labelPedidos, gc);
+		// FOURTH LINE
+		gc.gridy = 3;
+		gc.anchor = GridBagConstraints.NORTH;
+		this.add(fieldPedidos, gc);
+
+		////////FIFTH LINE
+		gc.gridy = 4;
+		gc.anchor = GridBagConstraints.SOUTH;
+		this.add(labelEndereço, gc);
+		// SIXTH LINE
+		gc.gridy = 5;
+		gc.anchor = GridBagConstraints.NORTH;
+		fieldEndereço.setPreferredSize(new Dimension(110, fieldEndereço.getPreferredSize().height*5));
+		this.add(new JScrollPane(fieldEndereço), gc);
+		
+		//SEVENTH LINE
+		gc.weighty = 2;
+		gc.gridy = 6;
+		gc.anchor = GridBagConstraints.CENTER;
+		this.add(criarButton, gc);
+		
+		
+		// //////////////SECOND COLUMN/////////////
+		gc.weighty = 0.1;
+		gc.gridx = 1;
+		// FIRST LINE
+		gc.gridy = 0;
+		gc.anchor = GridBagConstraints.SOUTH;
+		this.add(labelTelefone1, gc);
+		// SECOND LINE
+		gc.gridy = 1;
+		gc.anchor = GridBagConstraints.NORTH;
+		this.add(fieldTelefone1, gc);
+
+		// THIRD LINE
+		gc.gridy = 2;
+		gc.anchor = GridBagConstraints.SOUTH;
+		this.add(labelTelefone2, gc);
+		// FOURTH LINE
+		gc.gridy = 3;
+		gc.anchor = GridBagConstraints.NORTH;
+		this.add(fieldTelefone2, gc);
+
+		// SIXTH LINE
+		gc.weighty = 1;
+		gc.gridy = 5;
+		gc.anchor = GridBagConstraints.NORTH;
+		this.add(saveButton, gc);
+		// SEVENTH LINE
+		gc.gridy = 5;
+		gc.anchor = GridBagConstraints.CENTER;
+		this.add(cancelButton, gc);
+		
+		//EIGHTH LINE
+		gc.weighty = 2;
+		gc.gridy = 6;
+		gc.anchor = GridBagConstraints.CENTER;
+		this.add(adicionarPedido, gc);
+		//EIGHTH LINE
+		gc.weighty = 2;
+		gc.gridy = 6;
+		gc.anchor = GridBagConstraints.SOUTH;
+		this.add(excluir, gc);
+		//////////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////////////////
+		/////L////////A//////////Y///////////O///////////U////////////T//////////
+
+	}
+
+	public void editEvent(Cliente c) {
+		
+		fieldName.setEditable(true);
+		
+		fieldEndereço.setEditable(true);
+		
+		fieldPedidos.setEditable(true);
+		
+		fieldTelefone1.setEditable(true);
+		
+		fieldTelefone2.setEditable(true);
+		
+		saveButton.setEnabled(true);
+		cancelButton.setEnabled(true);
+		criarButton.setEnabled(false);
+		adicionarPedido.setEnabled(false);
+		excluir.setEnabled(false);
+		
+		
+	}
+	
+	private void editNovoEvent(Cliente c) {
+		fieldName.setEditable(true);
+		
+		fieldEndereço.setEditable(true);
+		
+		fieldPedidos.setEditable(true);
+		
+		fieldTelefone1.setEditable(true);
+		
+		fieldTelefone2.setEditable(true);
+		
+		cancelButton.setEnabled(true);
+		criarButton.setEnabled(true);
+		adicionarPedido.setEnabled(false);
+		excluir.setEnabled(false);
+		
+	}
+	public void cancelButtonEvent(){
+		cancelButton.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				currentClient = null;
+				saveButton.setEnabled(false);
+				cancelButton.setEnabled(false);
+				criarButton.setEnabled(false);
+				adicionarPedido.setEnabled(true);
+				excluir.setEnabled(true);
+				
+				fieldName.setEditable(false);;
+				fieldEndereço.setEditable(false);
+				fieldPedidos.setEditable(false);
+				fieldTelefone1.setEditable(false);
+				fieldTelefone2.setEditable(false);
+				
+				if(fieldName.getText()!="<Novo>"){
+					
+					fieldName.setText("");
+					fieldEndereço.setText("");
+					fieldPedidos.setText("");
+					fieldTelefone1.setText("");
+					fieldTelefone2.setText("");		
+				
+				}
+			}
+			
+		});
+		
+	}
+	
+	public void saveButtonEvent(){
+		saveButton.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				
+				if(!fieldName.getText().equals("<Novo>")&& !fieldName.getText().equals("")){
+					
+					fieldName.setEditable(false);
+					fieldEndereço.setEditable(false);
+					fieldPedidos.setEditable(false);
+					fieldTelefone1.setEditable(false);
+					fieldTelefone2.setEditable(false);
+					saveButton.setEnabled(false);
+					cancelButton.setEnabled(false);
+					adicionarPedido.setEnabled(true);
+					excluir.setEnabled(true);
+					
+					currentClient.setNome(fieldName.getText());
+					currentClient.setEndereço(fieldEndereço.getText());
+					String npedidos = fieldPedidos.getText();
+					currentClient.setnPedidos(Integer.parseInt(npedidos));
+					currentClient.setTelefone1(fieldTelefone1.getText());
+					currentClient.setTelefone2(fieldTelefone2.getText());
+					
+					updateButtonsListeners.updaterPressed();
+				}
+				
+			}
+			
+		});
+	}
+	
+	public void addNewListener(AddNewListener listener){
+		this.addNewListener = listener;
+	}
+	
+	public void criarButtonEvent(){
+		criarButton.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				if(!fieldName.getText().equals("<Novo>")){
+					fieldName.setEditable(false);
+					fieldEndereço.setEditable(false);
+					fieldPedidos.setEditable(false);
+					fieldTelefone1.setEditable(false);
+					fieldTelefone2.setEditable(false);
+					saveButton.setEnabled(false);
+					
+					currentClient.setNome(fieldName.getText());
+					currentClient.setEndereço(fieldEndereço.getText());
+					String npedidos = fieldPedidos.getText();
+					currentClient.setnPedidos(Integer.parseInt(npedidos));
+					currentClient.setTelefone1(fieldTelefone1.getText());
+					currentClient.setTelefone2(fieldTelefone2.getText());
+					
+					addNewListener.novoSavedEvent(currentClient);
+					criarButton.setEnabled(false);
+				}
+			}
+			
+		});
+	}
+
+	public void adicionarPedidoEvent(){
+		adicionarPedido.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				if(currentClient!=null){
+					currentClient.setnPedidos(currentClient.getnPedidos()+1);
+					showClient(currentClient);
+					updateButtonsListeners.updaterPressed();
+				}
+			}
+			
+		});
+	}
+	
+	public void excluirButtonEvent(){
+		excluir.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				if(currentClient == null) return;
+				if(currentClient.getNome().equals("<Novo>")) return;
+				
+				if(JOptionPane.showConfirmDialog(mainframe, "Confirmar Exclusão")==0){
+					excluirListener.excluirAction(currentClient);
+				}
+			}
+			
+		});
+	}
+	
+	public void addExcluirListener(ExcluirListener listener){
+		this.excluirListener = listener;
+	}
+	public void addUpdateButtonsListener(UpdateButtonsListener listener){
+		this.updateButtonsListeners = listener;
+	}
+	
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

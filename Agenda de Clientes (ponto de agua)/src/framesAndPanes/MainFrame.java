@@ -40,6 +40,7 @@ public class MainFrame extends JFrame{
 			@Override
 			public void novoSavedEvent(Cliente cliente) {
 				listPanel.newNovo();
+				listPanel.putAlphabeticOrder();
 			}
 			
 		});
@@ -56,7 +57,7 @@ public class MainFrame extends JFrame{
 			@Override
 			public void updaterPressed() {
 				listPanel.rebuildCaller();
-				
+				listPanel.putAlphabeticOrder();
 			}
 			
 		});
@@ -92,7 +93,6 @@ public class MainFrame extends JFrame{
 		@Override
 		public void listClientEditEvent(Cliente cliente) {
 			clientPanel.editEvent(cliente);
-			
 		}
 	}
 	

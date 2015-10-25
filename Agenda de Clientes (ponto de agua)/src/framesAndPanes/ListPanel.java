@@ -88,10 +88,12 @@ public class ListPanel extends JPanel {
 				if (selectListener != null) {
 					selectListener.listClientSelectedEvent(selecionado);
 				}
-				if (selecionado.getNome() != "<Novo>") {
-					Editar.setEnabled(true);
-				} else {
-					Editar.setEnabled(false);
+				if(selecionado!=null){
+					if (selecionado.getNome() != "<Novo>") {
+						Editar.setEnabled(true);
+					} else {
+						Editar.setEnabled(false);
+					}
 				}
 			}
 		});
@@ -187,16 +189,16 @@ public class ListPanel extends JPanel {
 		
 		int indexOfC = actualListModel.indexOf(c);
 
-		Random randint = new Random();
-
-		int rand;
-		do {
-			rand = randint.nextInt(actualListModel.size());
-		} while (rand == indexOfC);
-
-		list.setSelectedIndex(rand);
+//		Random randint = new Random();
+//
+//		int rand;
+//		do {
+//			rand = randint.nextInt(actualListModel.size());
+//		} while (rand == indexOfC);
+//
+//		list.setSelectedIndex(rand);
 		
-		listModels.getListModel().removeElement(c);
+		listModels.getOriginalList().removeElement(c);
 		
 		rebuildCaller();
 	}
@@ -221,6 +223,19 @@ public class ListPanel extends JPanel {
 			vetor[i] = model.get(i);
 		}
 		Import.rebuildArchive(vetor, MainFrame.FILE);
+	}
+	
+	public void putAlphabeticOrder(){
+		DefaultListModel<Cliente> aux = listModels.getOriginalList();
+		for(int i = 0; i < aux.getSize()-1; i++){
+			for(int j = 0; j < aux.getSize()-2; j++){
+				if(aux.get(j).getNome().charAt(0) > aux.get(j+1).getNome().charAt(0)){
+					Cliente changer = aux.get(j);
+					aux.set(j,aux.get(j+1));
+					aux.set(j+1, changer);
+				}
+			}
+		}
 	}
 
 }

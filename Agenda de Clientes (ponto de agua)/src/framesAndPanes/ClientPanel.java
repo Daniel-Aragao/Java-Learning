@@ -90,6 +90,8 @@ public class ClientPanel extends JPanel {
 		fieldTelefone1.addKeyListener(digitOnlyAdapter());
 		fieldTelefone2.addKeyListener(digitOnlyAdapter());
 		
+		fieldName.addKeyListener(cancelSemicolonDigit());
+		fieldEndereço.addKeyListener(cancelSemicolonDigit());
 		
 		cancelButtonEvent();
 		saveButtonEvent();
@@ -109,13 +111,28 @@ public class ClientPanel extends JPanel {
 	private KeyAdapter digitOnlyAdapter() {
 		KeyAdapter a = new KeyAdapter(){
 			public void keyTyped(KeyEvent e){
+				
 				if(!Character.isDigit(e.getKeyChar())){
+					e.consume();
+				}
+				
+				
+			}
+		};
+		
+		return a ;
+	}
+	
+	private KeyAdapter cancelSemicolonDigit(){
+		KeyAdapter a = new KeyAdapter(){
+			public void keyTyped(KeyEvent e){
+				if(e.getKeyChar() == KeyEvent.VK_SEMICOLON){
 					e.consume();
 				}
 			}
 		};
 		
-		return a ;
+		return a;
 	}
 
 	public void showClient(Cliente c){
@@ -428,6 +445,7 @@ public class ClientPanel extends JPanel {
 	public void addUpdateButtonsListener(UpdateButtonsListener listener){
 		this.updateButtonsListeners = listener;
 	}
+
 	
 }
 

@@ -1,3 +1,4 @@
-Daniel;5;silva jatahy 1400 apt 1201;97597784;88295757;
-Thiago;1;ruatal;924242424;911691169;
-Bruno;1;12121212312;85999746526;1212;
+Daniel Aragão;5;Rua Silva Jatahy 1400 apartamento 1201, regina castelo branco.;97597784;88295757
+Thiago Maia;3;rua do thiago;924242424;911691169
+Bruno d'Alva;2;12121212312;85999746526;1212
+Louis Vitoun;0;praia do futuro feelings;924242424;911691169
